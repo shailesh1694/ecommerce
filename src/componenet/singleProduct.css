@@ -1,0 +1,126 @@
+.singleProduct {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 10px auto;
+}
+
+.singleProductContainer {
+    display: flex;
+    max-width: 1024px;
+}
+
+.singleProductContainer>img {
+    height: 30vmax;
+    width: 30vmax;
+}
+
+.ProductDetails {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 10px;
+}
+
+.ProductDetails>h4 {
+    margin: 5px 0px;
+}
+
+.productDetails_block1 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    margin: 10px 0px;
+    padding: 10px 0px;
+}
+
+.productDetails_block1>span {
+    margin: 0px 10px;
+    font-size: 1vmax;
+}
+
+.ProductDetails>h2 {
+    color: tomato;
+}
+
+.productDetails_block2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px 0px;
+}
+
+.quntity {
+    display: flex;
+}
+
+.ptivebutton {
+    background-color: rgb(84, 82, 82);
+    color: white;
+    margin: 0px 2px;
+    cursor: pointer;
+    font-size: 25px;
+}
+
+.quntity>input {
+    outline: none;
+    width: 20%;
+}
+
+.productDetails_block2>button {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: tomato;
+    color: white;
+    cursor: pointer;
+    border: none;
+}
+
+.productDetails_block3 {
+    display: flex;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    padding: 10px;
+    margin: 10px 0px;
+    font-size: 20px;
+}
+
+.inStock {
+    color: green;
+}
+
+.outofstock {
+    color: tomato;
+}
+
+.productDetails_block4 {
+    color: gray;
+}
+
+.productDetails_block4>h2 {
+    margin: 1px 0px;
+}
+
+.productDetails_block5 {
+    margin: 20px 0px;
+}
+
+.productDetails_block5>button {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: tomato;
+    color: white;
+    cursor: pointer;
+    border: none;
+}
+.productReview {
+    font-size: 20px;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border-bottom: 1px solid gray;
+    margin: 50px auto;
+    padding: 5px;
+    width: 300px;
+    color: gray;
+}

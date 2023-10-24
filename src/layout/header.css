@@ -1,0 +1,35 @@
+.headerCotainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: lightgray;
+    height: 50px;
+    /* box-sizing: border-box; */
+}
+
+.headerList {
+    width: 100%;
+    max-width: 1024px;
+    display: flex;
+    align-items: center;
+}
+
+.listContainer {
+    display: flex;
+    list-style-type: none;
+    margin: 0px auto;
+}
+
+.listContainer>li {
+    margin: 0px 5px;
+}
+
+.headerProfile {
+    /* margin: 0px 10px; */
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    font-size: 25px;
+    /* cursor: pointer; */
+}
+

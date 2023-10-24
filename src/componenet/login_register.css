@@ -1,0 +1,56 @@
+.loginCompo {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    min-height: 600px;
+    align-items: center;
+}
+
+.loginContainer {
+    max-width: 1024px;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px;
+    height: 300px;
+    width: 300px;
+    border: 1px solid gray;
+    padding: 5px 25px;
+}
+
+.loginForm>input {
+    outline: none;
+    height: 25px;
+    color: gray;
+}
+.loginForm>button{
+    background-color: tomato;
+    color: white;
+    padding: 5px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.loginradion {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+}
+
+.radionContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px 0px;
+}
+.forgotPassword{
+    color: tomato;
+    margin: 5px 0px;
+    text-align: end;
+    cursor: pointer;
+}

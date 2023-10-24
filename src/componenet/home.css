@@ -1,0 +1,31 @@
+.home {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 10px auto;
+}
+
+.headerFuture {
+    font-size: 20px;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border-bottom: 1px solid gray;
+    margin: 20px auto;
+    padding: 5px;
+    width: 300px;
+    color: gray;
+}
+
+.homeContainer {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    max-width: 1024px;
+    flex-wrap: wrap;
+}
+
+/* .product {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+} */
