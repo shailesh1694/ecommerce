@@ -5,21 +5,22 @@ import ReactStars from 'react-rating-stars-component'
 import { getSingleProductApi } from '../reducers/productReducer'
 import "./singleProduct.css"
 import ReviewsCard from './ReviewsCard'
+import Header from '../layout/Header'
+import Loader from '../layout/Loader'
 
 function SingleProduct() {
 
     const location = useParams()
     const dispatch = useDispatch()
-    const { SingleProduct } = useSelector(state => state.product)
+    const { SingleProduct, isLoading } = useSelector(state => state.product)
 
     useEffect(() => {
         dispatch(getSingleProductApi(location.id))
     }, [])
 
-
-    // console.log(SingleProduct.product, "SingleProduct")
     return (
         <>
+            {isLoading && <Loader />}
             <div className='singleProduct'>
                 <div className='singleProductContainer'>
                     <img src={SingleProduct.product?.images[0].url} />

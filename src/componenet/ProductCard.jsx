@@ -8,6 +8,7 @@ import "./productCard.css"
 import logo from "../logo.svg"
 import { Link } from 'react-router-dom'
 import Pagination from './Pagination'
+import Header from '../layout/Header';
 function ProductCard() {
 
     const { AllProduct, isLoading } = useSelector(state => state.product)
@@ -56,7 +57,7 @@ function ProductCard() {
 
     return (
         <>
-            {/* {isLoading && <Loader />} */}
+            {isLoading && <Loader />}
             {/* <InfiniteScroll
                 dataLength={productData?.length}
                 next={fetchMoredata}
@@ -72,14 +73,14 @@ function ProductCard() {
                         </div>
                         <div className='priceRange'>
                             <span>Category</span>
-                            {category.map((item, index) => <label><input type='checkbox' name="category" checked={priceFilter.c_index === index} onChange={(e) => priceChangeFilter(e, index, "c")} value={item} />{item}</label>)}
+                            {category.map((item, index) => <label key={index}><input type='checkbox' name="category" checked={priceFilter.c_index === index} onChange={(e) => priceChangeFilter(e, index, "c")} value={item} />{item}</label>)}
                         </div>
                         <button className='clearbtn' onClick={(e) => setPriceFilter((pre) => { return { ...pre, price: null, category: null, c_index: null, p_index: null } })}>Clear-Filters</button>
                     </div>
                     <div className='productlist'>
                         {
-                            AllProduct?.data?.length > 0
-                                ? AllProduct?.data?.map((item, inde) => {
+                            AllProduct?.length > 0
+                                ? AllProduct?.map((item, inde) => {
                                     return <div key={inde}>
                                         <div className='productCard'>
                                             <Link to={`/product/${item._id}`}><img className='prductImg' src={item.images[0].url} /></Link>

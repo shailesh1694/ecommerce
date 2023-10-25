@@ -1,7 +1,9 @@
 import axios from "axios";
-import { getUser } from "./userData";
+import { getUser, removeUser } from "./userData";
+
 import toastMessage from "./toastMessage";
 import { isRejected, isRejectedWithValue } from "@reduxjs/toolkit";
+import { useNavigate } from "react-router-dom";
 
 
 const token = getUser()
@@ -29,18 +31,32 @@ const token = getUser()
 
 export async function callApi(method = "get", url, data = {}, thunkApi) {
     let headers = {}
-    headers["authorization"] = `Bearer ${token}`
-    try {
-        const response = await axios({
-            method: method,
-            url: url,
-            data: data,
-            headers
-        })
-        return response.data
-    } catch (error) {
-        return error
-    }
+    headers["authorization"] = `Bearer ${getUser()}`
+    const response = await axios({
+        method: method,
+        url: url,
+        data: data,
+        headers
+    }).then(res => res).catch(error => {
+        toastMessage(error.response.data.msg)
+        console.log(error, "error");
+        if (error.response.data.msg === "jwt expired") {
+            removeUser()
+            window.location.href = "/login"
+        }
+        if (error.response.data.msg === "invalid token") {
+            window.location.href = "/login"
+            removeUser()
+        }
+        if (error.response.data.msg === "jwt malformed") {
+            window.location.href = "/login"
+            removeUser()
+        }
+
+    })
+
+    return response.data
+
 }
 
 

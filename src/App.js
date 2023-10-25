@@ -8,13 +8,14 @@ import "./App.css"
 import Login_register from "./componenet/Login_register";
 import PageNotFound from "./componenet/PageNotFound";
 import { useEffect } from "react";
+import { getUser } from "./utils/userData";
 
 
 function App() {
 
   return (
     <BrowserRouter>
-      <Header />
+      <Header/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/product" element={<ProductCard />} />

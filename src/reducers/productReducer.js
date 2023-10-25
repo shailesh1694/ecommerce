@@ -2,9 +2,10 @@ import { createAsyncThunk, createSlice, isRejectedWithValue } from "@reduxjs/too
 import { callApi } from "../utils/callApi";
 import { getUser } from "../utils/userData";
 import axios from "axios";
-
+import toastMessage from "../utils/toastMessage";
 let headers = {}
-headers["authorization"] = `Bearer ${getUser()}`
+
+
 
 export const getAllproductApi = createAsyncThunk('product/getAllproductApi', async (payload, thunkApi) => {
     let params = ``
@@ -19,49 +20,64 @@ export const getAllproductApi = createAsyncThunk('product/getAllproductApi', asy
     }
     if (params) {
         try {
-            const response = await axios({ method: "get", url: "http://localhost:8080/api/v1/allproduct" + params })
+            const response = await callApi("get", "http://localhost:8080/api/v1/allproduct" + params)
             return response.data
         } catch (error) {
-            return thunkApi.rejectWithValue("error")
+            return thunkApi.rejectWithValue(error)
         }
 
     } else {
         try {
-            const response = await axios({ method: "get", url: "http://localhost:8080/api/v1/allproduct" })
+            const response = await callApi("get", "http://localhost:8080/api/v1/allproduct")
             return response.data
         } catch (error) {
-            return thunkApi.rejectWithValue("error")
+            return thunkApi.rejectWithValue(error)
         }
-
     }
-
-
-    // const data = await callApi("get", "http://localhost:8080/api/v1/allproduct" + payload)
 })
 
 export const getSingleProductApi = createAsyncThunk('product/getSingleProductApi', async (payload, thunkApi) => {
     try {
-        const response = await axios({ method: "get", url: "http://localhost:8080/api/v1/allproduct" })
+        const response = await callApi("get", "http://localhost:8080/api/v1/allproduct")
         return response.data
+    } catch (error) {
+        return thunkApi.rejectWithValue(error)
+    }
+})
+
+export const loginUserapi = createAsyncThunk('product/loginUserapi', async (payload, thunkApi) => {
+    try {
+        const response = await callApi("post", "http://localhost:8080/api/v1/login", payload)
+        return response
+    } catch (error) {
+        return thunkApi.rejectWithValue("Error")
+    }
+})
+
+export const getlogOutuserApi = createAsyncThunk('product/getlogOutuserApi', async (payload, thunkApi) => {
+    try {
+        const response = await callApi("get", "http://localhost:8080/api/v1/logOut")
+        return response.data
+    } catch (error) {
+        return thunkApi.rejectWithValue("Error")
+    }
+})
+
+export const getLoginuserDetails = createAsyncThunk('product/getLoginuserDetails', async (payload, thunkApi) => {
+    try {
+        const response = await callApi("get", "http://localhost:8080/api/v1/profile")
+        return response
     } catch (error) {
         return thunkApi.rejectWithValue("error")
     }
 })
-export const loginUserapi = createAsyncThunk('product/loginUserapi', async (payload, thunkApi) => {
-    try {
-        const response = await axios({ method: "post", url: "http://localhost:8080/api/v1/login", data: payload })
-        return response.data
-    } catch (error) {
-        return thunkApi.rejectWithValue("Error")
-    }
-})
-export const getlogOutuserApi = createAsyncThunk('product/getlogOutuserApi', async (payload, thunkApi) => {
 
+export const getRegisterUser = createAsyncThunk('product/getRegisterUser', async (payload, thunkApi) => {
     try {
-        const response = await axios({ method: "get", url: "http://localhost:8080/api/v1/logOut", headers: headers })
-        return response.data
+        const response = await callApi("post", "http://localhost:8080/api/v1/register-user",payload)
+        return response
     } catch (error) {
-        return thunkApi.rejectWithValue("Error")
+        return thunkApi.rejectWithValue("error")
     }
 })
 
@@ -74,7 +90,9 @@ const productSlice = createSlice({
         AllProduct: [],
         SingleProduct: [],
         loginUserData: {},
-        logOutUser: {}
+        logOutUser: {},
+        getUserDetails: {},
+        RegisterUser:{}
     },
     reducers: {
         reset(state, action) {
@@ -151,6 +169,40 @@ const productSlice = createSlice({
                 state.isError = true
                 state.isSuccess = false
                 state.logOutUser = action.payload
+            })
+
+            .addCase(getLoginuserDetails.pending, (state, action) => {
+                state.isLoading = true
+                state.isError = false
+                state.isSuccess = false
+            })
+            .addCase(getLoginuserDetails.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.getUserDetails = action.payload
+            })
+            .addCase(getLoginuserDetails.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.isSuccess = false
+                state.getUserDetails = action.payload
+            })
+
+            .addCase(getRegisterUser.pending, (state, action) => {
+                state.isLoading = true
+                state.isError = false
+                state.isSuccess = false
+            })
+            .addCase(getRegisterUser.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.RegisterUser = action.payload
+            })
+            .addCase(getRegisterUser.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.isSuccess = false
+                state.RegisterUser = action.payload
             })
     },
 })

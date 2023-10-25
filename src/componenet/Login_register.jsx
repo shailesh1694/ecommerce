@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import "./login_register.css";
-import { loginUserapi } from "../reducers/productReducer"
+import { loginUserapi, getLoginuserDetails, getRegisterUser } from "../reducers/productReducer"
 import toastMessage from "../utils/toastMessage"
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from "../utils/userData"
+import { getUser, setUser } from "../utils/userData"
 import { useNavigate } from 'react-router-dom';
 import Loader from '../layout/Loader';
+import Header from '../layout/Header';
+import { useEffect } from 'react';
 
 function Login_register() {
 
@@ -20,6 +22,11 @@ function Login_register() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    useEffect(() => {
+        if (getUser()) {
+            navigate("/product")
+        }
+    }, [])
 
     const handleSetLogin = () => {
         setLogin((pre) => !pre)
@@ -40,6 +47,25 @@ function Login_register() {
                 if (res.type === "product/loginUserapi/fulfilled") {
                     toastMessage("user Login Success", "success")
                     setUser(res.payload.token)
+                    dispatch(getLoginuserDetails())
+                    navigate("/product")
+                }
+            })
+        }
+    }
+
+    const callRegisterApi = () => {
+        if (!logiData.email || !logiData.password || !logiData.name) {
+            return toastMessage("Enter Email or Password or Name")
+        } else {
+            dispatch(getRegisterUser({
+                email: logiData.email,
+                password: logiData.password,
+                name: logiData.name
+            })).then((res) => {
+                if (res.type === "product/getRegisterUser/fulfilled") {
+                    toastMessage("user Register Success", "success")
+                    setUser(res.payload.token)
                     navigate("/product")
                 }
             })
@@ -48,6 +74,7 @@ function Login_register() {
 
     return (
         <>{isLoading && <Loader />}
+            {/* <Header /> */}
             <div className='loginCompo'>
                 <div className='loginContainer'>
                     <div className="loginForm">
@@ -65,7 +92,8 @@ function Login_register() {
                         <input name='email' onChange={(e) => { hanldeInputChange(e) }} type='email' placeholder='Email' />
                         <input name='password' onChange={(e) => { hanldeInputChange(e) }} type='password' placeholder='Password' />
                         {!login && <span className='forgotPassword'>Forgot Email Or Password!</span>}
-                        {login ? <button>Register</button> : <button onClick={(e) => { callLoginApi() }}>Login</button>}
+                        {login ? <button onClick={()=>{callRegisterApi()}}>Register</button> : <button onClick={(e) => { callLoginApi() }}>Login</button>}
+
                     </div>
                 </div>
             </div>
