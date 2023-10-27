@@ -91,7 +91,7 @@ function Login_register() {
                         {login && <input name='name' onChange={(e) => { hanldeInputChange(e) }} type='text' placeholder='Enter Your Name' />}
                         <input name='email' onChange={(e) => { hanldeInputChange(e) }} type='email' placeholder='Email' />
                         <input name='password' onChange={(e) => { hanldeInputChange(e) }} type='password' placeholder='Password' />
-                        {!login && <span className='forgotPassword'>Forgot Email Or Password!</span>}
+                        {!login && <span className='forgotPassword'>Forgot Password !</span>}
                         {login ? <button onClick={()=>{callRegisterApi()}}>Register</button> : <button onClick={(e) => { callLoginApi() }}>Login</button>}
 
                     </div>

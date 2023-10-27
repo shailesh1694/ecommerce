@@ -1,0 +1,10 @@
+.profile_compo {
+    display: flex;
+    justify-content: center;
+}
+
+.profile_container {
+    width: 1024px;
+    min-height: 600px;
+    margin: 15px 0px;
+}

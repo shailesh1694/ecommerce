@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate, useNavigation } from 'react-router-dom'
+import { Link, NavLink, useNavigate, useNavigation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faShoppingCart, faUserCircle, faArrowLeftLong, faUserLock ,faDashboard,faSignOut,faSignIn,faSigning} from '@fortawesome/free-solid-svg-icons'
 import '../layout/header.css'
@@ -48,7 +48,7 @@ function Header() {
                         <div style={{ position: "relative"}}>
                             <div onClick={() => { handleCallProfileapi() } } style={{cursor:"pointer"}}><FontAwesomeIcon icon={faUserCircle} /></div>
                             {show && <div className='profileShow'>
-                                <div className='profileShowName'><FontAwesomeIcon icon={faUser} /><span>{getUserDetails?.user?.name}</span></div>
+                                <div className='profileShowName'><NavLink style={{color:"black",textDecoration:"none"}} to={"/profile"}><FontAwesomeIcon icon={faUser} /><span>{getUserDetails?.user?.name}</span></NavLink></div>
                                 {getUserDetails?.user?.role === "admin" && <div className='profileShowName'><FontAwesomeIcon icon={faDashboard} /><span>Dashbord</span></div>}
                                 <div className='profileShowName' onClick={()=>handleLogOutUser()}><FontAwesomeIcon icon={faSignOut} /><span>Log-out</span></div>
                             </div>}
