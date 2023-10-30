@@ -9,21 +9,25 @@ import "./App.css"
 import Login_register from "./componenet/Login_register";
 import PageNotFound from "./componenet/PageNotFound";
 import ViewProfile from "./componenet/ViewProfile";
+import ProtectedRoute from "./layout/ProtectedRoute";
 import { getUser } from "./utils/userData";
+import { useSelector } from "react-redux";
 
 
 function App() {
 
-  const token = getUser()
   return (
     <BrowserRouter>
-      <Header />
+      <Header key={window.location.pathname} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/product" element={<ProductCard />} />
         <Route path="/product/:id" element={<SingleProduct />} />
         <Route path="/login" element={<Login_register />} />
-        <Route path="/profile" element={<ViewProfile />} />
+        <Route path="/forgot_password" element={<ViewProfile />} />
+        <Route element={<ProtectedRoute />} >
+          <Route path="/change_password" element={<ViewProfile />} />
+        </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />

@@ -74,7 +74,31 @@ export const getLoginuserDetails = createAsyncThunk('product/getLoginuserDetails
 
 export const getRegisterUser = createAsyncThunk('product/getRegisterUser', async (payload, thunkApi) => {
     try {
-        const response = await callApi("post", "http://localhost:8080/api/v1/register-user",payload)
+        const response = await callApi("post", "http://localhost:8080/api/v1/register-user", payload)
+        return response
+    } catch (error) {
+        return thunkApi.rejectWithValue("error")
+    }
+})
+export const getChangePassword = createAsyncThunk('product/getChangePassword', async (payload, thunkApi) => {
+    try {
+        const response = await callApi("post", "http://localhost:8080/api/v1/update_password", payload)
+        return response
+    } catch (error) {
+        return thunkApi.rejectWithValue("error")
+    }
+})
+export const getSendPasswordResetLink = createAsyncThunk('product/getSendPasswordResetLink', async (payload, thunkApi) => {
+    try {
+        const response = await callApi("post", "http://localhost:8080/api/v1/fogotPassword", payload)
+        return response
+    } catch (error) {
+        return thunkApi.rejectWithValue("error")
+    }
+})
+export const forgotPasswordReset = createAsyncThunk('product/forgotPasswordReset', async (payload, thunkApi) => {
+    try {
+        const response = await callApi("patch", "http://localhost:8080/api/v1/resetPassword", payload)
         return response
     } catch (error) {
         return thunkApi.rejectWithValue("error")
@@ -92,7 +116,10 @@ const productSlice = createSlice({
         loginUserData: {},
         logOutUser: {},
         getUserDetails: {},
-        RegisterUser:{}
+        RegisterUser: {},
+        UpdatePassword: {},
+        ForgotPasswordLink: {},
+        Resetpassword: {}
     },
     reducers: {
         reset(state, action) {
@@ -203,6 +230,40 @@ const productSlice = createSlice({
                 state.isError = true
                 state.isSuccess = false
                 state.RegisterUser = action.payload
+            })
+
+            .addCase(getSendPasswordResetLink.pending, (state, action) => {
+                state.isLoading = true
+                state.isError = false
+                state.isSuccess = false
+            })
+            .addCase(getSendPasswordResetLink.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.UpdatePassword = action.payload
+            })
+            .addCase(getSendPasswordResetLink.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.isSuccess = false
+                state.UpdatePassword = action.payload
+            })
+
+            .addCase(forgotPasswordReset.pending, (state, action) => {
+                state.isLoading = true
+                state.isError = false
+                state.isSuccess = false
+            })
+            .addCase(forgotPasswordReset.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.Resetpassword = action.payload
+            })
+            .addCase(forgotPasswordReset.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.isSuccess = false
+                state.Resetpassword = action.payload
             })
     },
 })

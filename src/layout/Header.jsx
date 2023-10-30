@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, NavLink, useNavigate, useNavigation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faShoppingCart, faUserCircle, faArrowLeftLong, faUserLock ,faDashboard,faSignOut,faSignIn,faSigning} from '@fortawesome/free-solid-svg-icons'
+import { faUser, faShoppingCart, faUserCircle, faUserLock, faDashboard, faSignOut, faSignIn, faSigning } from '@fortawesome/free-solid-svg-icons'
 import '../layout/header.css'
 import { getUser, removeUser } from '../utils/userData'
 import { getlogOutuserApi, getLoginuserDetails } from "../reducers/productReducer"
@@ -34,29 +34,36 @@ function Header() {
         if (!getUserDetails?.success) { dispatch(getLoginuserDetails()) }
         setShow(() => !show)
     }
+
+    const handleChangePassword = () => {
+        setShow(() => !show)
+        navigate("/change_password")
+    }
+
     return (<>
         {isLoading && <Loader />}
         <div className='headerCotainer'>
             <div className="headerList">
                 <p>E-COMMERSE</p>
                 <ul className='listContainer'>
-                    {header.map((item, index) => <li><Link style={{ textDecoration: "none" }} to={item.value} key={index}> {item.label}</Link></li>)}
+                    {header.map((item, index) => <li key={index}><Link style={{ textDecoration: "none" }} to={item.value} > {item.label}</Link></li>)}
                 </ul>
                 {token
                     ? <div className='headerProfile'>
                         <div><FontAwesomeIcon icon={faShoppingCart} /></div>
-                        <div style={{ position: "relative"}}>
-                            <div onClick={() => { handleCallProfileapi() } } style={{cursor:"pointer"}}><FontAwesomeIcon icon={faUserCircle} /></div>
+                        <div style={{ position: "relative" }}>
+                            <div onClick={() => { handleCallProfileapi() }} style={{ cursor: "pointer" }}><FontAwesomeIcon icon={faUserCircle} /></div>
                             {show && <div className='profileShow'>
-                                <div className='profileShowName'><NavLink style={{color:"black",textDecoration:"none"}} to={"/profile"}><FontAwesomeIcon icon={faUser} /><span>{getUserDetails?.user?.name}</span></NavLink></div>
+                                <div className='profileShowName'><NavLink style={{ color: "black", textDecoration: "none" }}><FontAwesomeIcon icon={faUser} /><span>{getUserDetails?.user?.name}</span></NavLink></div>
+                                <div className='profileShowName' onClick={handleChangePassword}><FontAwesomeIcon icon={faUserLock} /><span>Change-Password</span></div>
                                 {getUserDetails?.user?.role === "admin" && <div className='profileShowName'><FontAwesomeIcon icon={faDashboard} /><span>Dashbord</span></div>}
-                                <div className='profileShowName' onClick={()=>handleLogOutUser()}><FontAwesomeIcon icon={faSignOut} /><span>Log-out</span></div>
+                                <div className='profileShowName' onClick={() => handleLogOutUser()}><FontAwesomeIcon icon={faSignOut} /><span>Log-out</span></div>
                             </div>}
                         </div>
                     </div>
                     : <div className='headerProfile'><Link style={{ textDecoration: "none", color: "none" }} to={"/login"}><FontAwesomeIcon icon={faSignIn} /></Link></div>}
             </div>
-        </div>
+        </div >
     </>
     )
 }

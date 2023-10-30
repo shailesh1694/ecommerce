@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import "./login_register.css";
-import { loginUserapi, getLoginuserDetails, getRegisterUser } from "../reducers/productReducer"
+import { loginUserapi, getLoginuserDetails, getRegisterUser, getSendPasswordResetLink } from "../reducers/productReducer"
 import toastMessage from "../utils/toastMessage"
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, setUser } from "../utils/userData"
@@ -18,7 +18,7 @@ function Login_register() {
         password: ""
     }
     const [logiData, setLogiData] = useState({ ...initialState })
-    const { loginUserData, isLoading } = useSelector((state) => state.product)
+    const { loginUserData, isLoading, } = useSelector((state) => state.product)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -72,6 +72,19 @@ function Login_register() {
         }
     }
 
+    const handleForgotPassword = () => {
+        if (!logiData.email) {
+            return toastMessage("Enter Email !")
+        }
+        dispatch(getSendPasswordResetLink({
+            email: logiData.email
+        })).then((res) => {
+            if (res.type === 'product/getSendPasswordResetLink/fulfilled') {
+                navigate(res.payload.url)
+            }
+        })
+    }
+
     return (
         <>{isLoading && <Loader />}
             {/* <Header /> */}
@@ -88,11 +101,11 @@ function Login_register() {
                                 <label htmlFor="register">Register</label>
                             </div>
                         </div>
-                        {login && <input name='name' onChange={(e) => { hanldeInputChange(e) }} type='text' placeholder='Enter Your Name' />}
-                        <input name='email' onChange={(e) => { hanldeInputChange(e) }} type='email' placeholder='Email' />
-                        <input name='password' onChange={(e) => { hanldeInputChange(e) }} type='password' placeholder='Password' />
-                        {!login && <span className='forgotPassword'>Forgot Password !</span>}
-                        {login ? <button onClick={()=>{callRegisterApi()}}>Register</button> : <button onClick={(e) => { callLoginApi() }}>Login</button>}
+                        {login && <input name='name' onChange={hanldeInputChange} type='text' placeholder='Enter Your Name' />}
+                        <input name='email' onChange={hanldeInputChange} type='email' placeholder='Email' />
+                        <input name='password' onChange={hanldeInputChange} type='password' placeholder='Password' />
+                        {!login && <span className='forgotPassword' onClick={handleForgotPassword}>Forgot Password !</span>}
+                        {login ? <button onClick={() => { callRegisterApi() }}>Register</button> : <button onClick={(e) => { callLoginApi() }}>Login</button>}
 
                     </div>
                 </div>
