@@ -38,8 +38,8 @@ export const getAllproductApi = createAsyncThunk('product/getAllproductApi', asy
 
 export const getSingleProductApi = createAsyncThunk('product/getSingleProductApi', async (payload, thunkApi) => {
     try {
-        const response = await callApi("get", "http://localhost:8080/api/v1/allproduct")
-        return response.data
+        const response = await callApi("get", "http://localhost:8080/api/v1/allproduct/" + payload )
+        return response
     } catch (error) {
         return thunkApi.rejectWithValue(error)
     }
@@ -104,6 +104,14 @@ export const forgotPasswordReset = createAsyncThunk('product/forgotPasswordReset
         return thunkApi.rejectWithValue("error")
     }
 })
+export const getProductReviewApi = createAsyncThunk('product/getProductReviewApi', async (payload, thunkApi) => {
+    try {
+        const response = await callApi("get", "http://localhost:8080/api/v1/allReview/"+ payload)
+        return response
+    } catch (error) {
+        return thunkApi.rejectWithValue("error")
+    }
+})
 
 const productSlice = createSlice({
     name: 'product',
@@ -119,7 +127,8 @@ const productSlice = createSlice({
         RegisterUser: {},
         UpdatePassword: {},
         ForgotPasswordLink: {},
-        Resetpassword: {}
+        Resetpassword: {},
+        ProductReviews:{},
     },
     reducers: {
         reset(state, action) {
@@ -264,6 +273,23 @@ const productSlice = createSlice({
                 state.isError = true
                 state.isSuccess = false
                 state.Resetpassword = action.payload
+            })
+
+            .addCase(getProductReviewApi.pending, (state, action) => {
+                state.isLoading = true
+                state.isError = false
+                state.isSuccess = false
+            })
+            .addCase(getProductReviewApi.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.ProductReviews = action.payload
+            })
+            .addCase(getProductReviewApi.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.isSuccess = false
+                state.ProductReviews = action.payload
             })
     },
 })

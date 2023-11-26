@@ -6,24 +6,25 @@ import { faUser, faUserCircle } from '@fortawesome/free-solid-svg-icons'
 import "./reviewsCard.css"
 
 function ReviewsCard() {
-    const { SingleProduct } = useSelector(state => state.product)
+    const {  ProductReviews } = useSelector(state => state.product)
+    console.log(ProductReviews,"ProductReviews")
 
-    // console.log(SingleProduct?.product?.reviews.length, "SingleProduct")
     return (
         <div className='reviCard'>
             <div className='revContainer'>
                 {
-                    SingleProduct?.product?.reviews.length > 1
-                        ? SingleProduct?.product?.reviews.map((item, inde) => <div className='userReviews' key={inde}>
+                    ProductReviews?.data?.length > 1
+                        ? ProductReviews?.data?.map((item, inde) => <div className='userReviews' key={inde}>
                             <FontAwesomeIcon icon={faUserCircle} />
-                            <span>Shailesh</span>
+                            <span>{item.name}</span>
                             <ReactStars
                                 edit={false}
                                 count={5}
                                 size={24}
+                                value={item.rating}
                                 activeColor="#ffd700"
                             />
-                            <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ullam itaque quod, sed aspernatur doloribus, vero repudiandae, aut quas </span>
+                            <span>{item.comment}</span>
                         </div>)
                         : <p>No Reviews Yet !</p>
                 }
