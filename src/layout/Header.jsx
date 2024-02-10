@@ -11,7 +11,7 @@ import Loader from './Loader'
 
 function Header() {
 
-    const header = [{ label: "Home", value: "/" }, { label: "Product", value: "/product" }, { label: "AboutUs", value: "/about-us" }]
+    const header = [{ label: "Home", value: "/" },  { label: "AboutUs", value: "/about-us" }]
     const token = getUser()
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -54,7 +54,7 @@ function Header() {
                         <div style={{ position: "relative" }}>
                             <div onClick={() => { handleCallProfileapi() }} style={{ cursor: "pointer" }}><FontAwesomeIcon icon={faUserCircle} /></div>
                             {show && <div className='profileShow'>
-                                <div className='profileShowName'><NavLink style={{ color: "black", textDecoration: "none" }}><FontAwesomeIcon icon={faUser} /><span>{getUserDetails?.user?.name}</span></NavLink></div>
+                                <div className='profileShowName'><FontAwesomeIcon icon={faUser} /><span>{getUserDetails?.user?.name}</span></div>
                                 <div className='profileShowName' onClick={handleChangePassword}><FontAwesomeIcon icon={faUserLock} /><span>Change-Password</span></div>
                                 {getUserDetails?.user?.role === "admin" && <div className='profileShowName'><FontAwesomeIcon icon={faDashboard} /><span>Dashbord</span></div>}
                                 <div className='profileShowName' onClick={() => handleLogOutUser()}><FontAwesomeIcon icon={faSignOut} /><span>Log-out</span></div>

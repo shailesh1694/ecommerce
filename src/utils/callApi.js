@@ -29,14 +29,13 @@ const token = getUser()
 //     return res.json();
 // }
 
-export async function callApi(method = "get", url, data = {}, thunkApi) {
+export async function callApi(method = "get", url, data = {}) {
     let headers = {}
-    headers["authorization"] = `Bearer ${getUser()}`
+    // headers["authorization"] = `Bearer ${(window.Cookies.token)}`
     const response = await axios({
         method: method,
         url: url,
         data: data,
-        headers
     }).then(res => res).catch(error => {
         toastMessage(error.response.data.msg)
         console.log(error, "error");

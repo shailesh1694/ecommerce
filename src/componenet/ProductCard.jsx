@@ -55,6 +55,7 @@ function ProductCard() {
 
     const category = ["smartphones", "laptop", "refrigrator"]
 
+    console.log(AllProduct, "AllProduct")
     return (
         <>
             {isLoading && <Loader />}
@@ -79,8 +80,8 @@ function ProductCard() {
                     </div>
                     <div className='productlist'>
                         {
-                            AllProduct?.length > 0
-                                ? AllProduct?.map((item, inde) => {
+                            AllProduct?.data?.length > 0
+                                ? AllProduct?.data?.map((item, inde) => {
                                     return <div key={inde}>
                                         <div className='productCard'>
                                             <Link to={`/product/${item._id}`}><img className='prductImg' src={item.images[0].url} /></Link>

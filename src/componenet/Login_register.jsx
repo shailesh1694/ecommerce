@@ -22,12 +22,15 @@ function Login_register() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+
+
     useEffect(() => {
         if (getUser()) {
             navigate("/product")
         }
     }, [])
 
+    
     const handleSetLogin = () => {
         setLogin((pre) => !pre)
         setLogiData({ ...initialState })
@@ -48,7 +51,7 @@ function Login_register() {
                     toastMessage("user Login Success", "success")
                     setUser(res.payload.token)
                     dispatch(getLoginuserDetails())
-                    navigate("/product")
+                    navigate("/")
                 }
             })
         }

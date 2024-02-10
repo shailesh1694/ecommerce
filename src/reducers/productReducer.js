@@ -1,115 +1,118 @@
-import { createAsyncThunk, createSlice, isRejectedWithValue } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { callApi } from "../utils/callApi";
-import { getUser } from "../utils/userData";
 import axios from "axios";
-import toastMessage from "../utils/toastMessage";
-let headers = {}
-
 
 
 export const getAllproductApi = createAsyncThunk('product/getAllproductApi', async (payload, thunkApi) => {
-    let params = ``
-    if (payload.price && !payload.category) {
-        params = `?${payload.price}`
-    } else if (payload.category && !payload.price) {
-        params = `?category=${payload.category}`
-    } else if (payload.category && payload.price) {
-        params = `?category=${payload.category}&${payload.price}`
-    } else {
-        params = null
-    }
-    if (params) {
-        try {
-            const response = await callApi("get", "http://localhost:8080/api/v1/allproduct" + params)
-            return response.data
-        } catch (error) {
-            return thunkApi.rejectWithValue(error)
-        }
 
-    } else {
-        try {
-            const response = await callApi("get", "http://localhost:8080/api/v1/allproduct")
-            return response.data
-        } catch (error) {
-            return thunkApi.rejectWithValue(error)
-        }
+    try {
+        const response = await axios({ method: "get", url: "http://localhost:8080/api/v1/allproduct", withCredentials: true })
+        return response.data;
+    } catch (error) {
+        return thunkApi.rejectWithValue(error.response)
     }
 })
 
 export const getSingleProductApi = createAsyncThunk('product/getSingleProductApi', async (payload, thunkApi) => {
+
     try {
-        const response = await callApi("get", "http://localhost:8080/api/v1/allproduct/" + payload )
-        return response
+        const response = await axios({ method: "get", url: "http://localhost:8080/api/v1/allproduct/" + payload, withCredentials: true })
+        return response.data;
     } catch (error) {
-        return thunkApi.rejectWithValue(error)
+        return thunkApi.rejectWithValue(error.response)
     }
+
 })
 
 export const loginUserapi = createAsyncThunk('product/loginUserapi', async (payload, thunkApi) => {
+
     try {
-        const response = await callApi("post", "http://localhost:8080/api/v1/login", payload)
-        return response
+        const response = await axios({ method: "post", url: "http://localhost:8080/api/v1/login", data: payload, withCredentials: true })
+        return response.data;
     } catch (error) {
-        return thunkApi.rejectWithValue("Error")
+        return thunkApi.rejectWithValue(error.response)
     }
 })
 
 export const getlogOutuserApi = createAsyncThunk('product/getlogOutuserApi', async (payload, thunkApi) => {
     try {
-        const response = await callApi("get", "http://localhost:8080/api/v1/logOut")
-        return response.data
+        const response = await axios({ method: "get", url: "http://localhost:8080/api/v1/logOut", withCredentials: true })
+        return response.data;
     } catch (error) {
-        return thunkApi.rejectWithValue("Error")
+        return thunkApi.rejectWithValue(error.response)
     }
 })
 
 export const getLoginuserDetails = createAsyncThunk('product/getLoginuserDetails', async (payload, thunkApi) => {
     try {
-        const response = await callApi("get", "http://localhost:8080/api/v1/profile")
-        return response
+        const response = await axios({ method: "get", url: "http://localhost:8080/api/v1/profile", withCredentials: true })
+        return response.data;
     } catch (error) {
-        return thunkApi.rejectWithValue("error")
+        return thunkApi.rejectWithValue(error.response)
     }
 })
 
 export const getRegisterUser = createAsyncThunk('product/getRegisterUser', async (payload, thunkApi) => {
     try {
-        const response = await callApi("post", "http://localhost:8080/api/v1/register-user", payload)
-        return response
+        const response = await axios({ method: "post", url: "http://localhost:8080/api/v1/register-user", data: payload, withCredentials: true })
+        return response.data;
     } catch (error) {
-        return thunkApi.rejectWithValue("error")
+        return thunkApi.rejectWithValue(error.response)
     }
 })
+
 export const getChangePassword = createAsyncThunk('product/getChangePassword', async (payload, thunkApi) => {
+
     try {
-        const response = await callApi("post", "http://localhost:8080/api/v1/update_password", payload)
-        return response
+        const response = await axios({ method: "post", url: "http://localhost:8080/api/v1/update_password", data: payload, withCredentials: true })
+        return response.data;
     } catch (error) {
-        return thunkApi.rejectWithValue("error")
+        return thunkApi.rejectWithValue(error.response)
     }
 })
+
 export const getSendPasswordResetLink = createAsyncThunk('product/getSendPasswordResetLink', async (payload, thunkApi) => {
     try {
-        const response = await callApi("post", "http://localhost:8080/api/v1/fogotPassword", payload)
-        return response
+        const response = await axios({ method: "post", url: "http://localhost:8080/api/v1/fogotPassword", data: payload, withCredentials: true })
+        return response.data;
     } catch (error) {
-        return thunkApi.rejectWithValue("error")
+        return thunkApi.rejectWithValue(error.response)
     }
 })
+
 export const forgotPasswordReset = createAsyncThunk('product/forgotPasswordReset', async (payload, thunkApi) => {
     try {
-        const response = await callApi("patch", "http://localhost:8080/api/v1/resetPassword", payload)
-        return response
+        const response = await axios({ method: "patch", url: "http://localhost:8080/api/v1/resetPassword", data: payload, withCredentials: true })
+        return response.data;
     } catch (error) {
-        return thunkApi.rejectWithValue("error")
+        return thunkApi.rejectWithValue(error.response)
     }
 })
+
 export const getProductReviewApi = createAsyncThunk('product/getProductReviewApi', async (payload, thunkApi) => {
     try {
-        const response = await callApi("get", "http://localhost:8080/api/v1/allReview/"+ payload)
-        return response
+        const response = await axios({ method: "get", url: "http://localhost:8080/api/v1/allReview/" + payload, withCredentials: true })
+        return response.data;
     } catch (error) {
-        return thunkApi.rejectWithValue("error")
+        return thunkApi.rejectWithValue(error.response)
+    }
+})
+
+export const getVerifyOrderConfirmation = createAsyncThunk('product/getVerifyOrderConfirmation', async (payload, thunkApi) => {
+    try {
+        const response = await axios({ method: "post", url: "http://localhost:8080/api/v1/orderVarification/", data: payload, withCredentials: true })
+        return response.data;
+    } catch (error) {
+        return thunkApi.rejectWithValue(error.response.status)
+    }
+})
+
+export const getorderByOrderId = createAsyncThunk('product/getorderByOrderId', async (payload, thunkApi) => {
+    try {
+        const response = await axios({ method: "get", url: "http://localhost:8080/api/v1/order/" + payload, withCredentials: true })
+        return response.data;
+    } catch (error) {
+        return thunkApi.rejectWithValue(error.response.status)
     }
 })
 
@@ -128,7 +131,9 @@ const productSlice = createSlice({
         UpdatePassword: {},
         ForgotPasswordLink: {},
         Resetpassword: {},
-        ProductReviews:{},
+        ProductReviews: {},
+        OrderVerification: {},
+        OrderByOrderid: {}
     },
     reducers: {
         reset(state, action) {
@@ -290,6 +295,40 @@ const productSlice = createSlice({
                 state.isError = true
                 state.isSuccess = false
                 state.ProductReviews = action.payload
+            })
+
+            .addCase(getVerifyOrderConfirmation.pending, (state, action) => {
+                state.isLoading = true
+                state.isError = false
+                state.isSuccess = false
+            })
+            .addCase(getVerifyOrderConfirmation.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.OrderVerification = action.payload
+            })
+            .addCase(getVerifyOrderConfirmation.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.isSuccess = false
+                state.OrderVerification = action.payload
+            })
+
+            .addCase(getorderByOrderId.pending, (state, action) => {
+                state.isLoading = true
+                state.isError = false
+                state.isSuccess = false
+            })
+            .addCase(getorderByOrderId.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.OrderByOrderid = action.payload
+            })
+            .addCase(getorderByOrderId.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.isSuccess = false
+                state.OrderByOrderid = action.payload
             })
     },
 })
