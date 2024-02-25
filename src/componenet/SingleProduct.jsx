@@ -15,15 +15,15 @@ function SingleProduct() {
 
     useEffect(() => {
         dispatch(getSingleProductApi(location.id))
-        dispatch(getProductReviewApi(location.id));
     }, [])
 
+    console.log(SingleProduct,"SingleProduct")
     return (
         <>
             {isLoading && <Loader />}
             <div className='singleProduct'>
                 <div className='singleProductContainer'>
-                    <img src={SingleProduct?.product?.images[0].url} alt='' />
+                    <img src={SingleProduct?.product?.images?.[0]?.url} alt='' />
                     <div className='ProductDetails'>
                         <h4>{SingleProduct?.product?.title}</h4>
                         <span>{SingleProduct?.product?._id}</span>

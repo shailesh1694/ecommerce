@@ -8,13 +8,13 @@ function OrderPlace() {
         e.preventDefault();
         var options = {
             "key": "rzp_test_woRxW1TAX8YPUu", // Enter the Key ID generated from the Dashboard
-            "amount": 200, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "amount": 900, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
             "currency": "INR",
             "name": "MoriCompnay",
             "description": "Test Transaction",
             "image": "https://example.com/your_logo",
-            "order_id": "order_NY3zRU9nj19Oav", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-            "callback_url": `http://localhost:8080/api/v1/payment-validate/${getUser()}`,
+            "order_id": "order_NezRrlx1diIWjM", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "callback_url": `http://localhost:8080/api/v1/payment-validate?token=${getUser()}`,
             "prefill": {
                 "name": "Shailesh Mori",
                 "email": "morishailesh982@gmail.com",
