@@ -29,11 +29,15 @@ function ProductCard() {
         p_index: null
     })
 
+
+    const priceData = [...new Set(AllProduct?.product?.map((item) => item.price))];
+
     useEffect(() => {
         callProductApi()
     }, [priceFilter])
-
-
+    console.log(priceData[priceData.length - 1], "data")
+    console.log(priceData[0], "data")
+    
     // const fetchMoredata = (e) => {
     //     if (productData?.length !== (AllProduct?.productCoutne || AllProduct?.filterPriceCount)) {
     //         setpage((pre) => pre + 1)
@@ -59,18 +63,17 @@ function ProductCard() {
     return (
         <>
             {isLoading && <Loader />}
-            {/* <InfiniteScroll
-                dataLength={productData?.length}
-                next={fetchMoredata}
-                hasMore={hasMore}
-                loader={<Loader />}
-            > */}
             <div className='product'>
                 <div className='productContainer'>
                     <div className='filterTab'>
                         <div className='priceRange'>
-                            <span>Price Range</span>
-                            {price.map((item, index) => <label key={index} ><input type='checkbox' checked={priceFilter.p_index === index} name="price" onChange={(e) => priceChangeFilter(e, index, "p")} value={item.value} />{item.label}</label>)}
+                            {/* <span>Price Range</span>
+                            {price.map((item, index) => <label key={index} ><input type='checkbox' checked={priceFilter.p_index === index} name="price" onChange={(e) => priceChangeFilter(e, index, "p")} value={item.value} />{item.label}</label>)} */}
+                            <label htmlFor="customRange2" className="form-label">Product Price</label>
+                            <input type="range" className="form-range" min= {priceData[0]} max={priceData[priceData.length - 1]} id="customRange2" onChange={(e) => {
+                                const { min, max, value } = e.target;
+                                console.log(min, max, value)
+                            }}></input>
                         </div>
                         <div className='priceRange'>
                             <span>Category</span>
@@ -80,24 +83,24 @@ function ProductCard() {
                     </div>
                     <div className='productlist'>
                         {
-                            AllProduct?.data?.length > 0
-                                ? AllProduct?.data?.map((item, inde) => {
+                            AllProduct?.product?.length > 0
+                                ? AllProduct?.product?.map((item, inde) => {
                                     return <div key={inde}>
                                         <div className='productCard'>
-                                            <Link to={`/product/${item._id}`}><img className='prductImg' src={item.images[0].url} /></Link>
-                                            <p>{item.title}</p>
-                                            <div>
-                                                <ReactStars
-                                                    edit={false}
-                                                    count={5}
-                                                    // onChange={ratingChanged}
-                                                    size={24}
-                                                    activeColor="#ffd700"
-                                                    value={item.totalrating}
-                                                />
-                                                <span>{item.numOfReviews}</span>
-                                            </div>
-                                            <span>${item.price}</span>
+                                            <Link to={`/product/${item._id}`}>
+                                                <p>{item.title}</p>
+                                                <div>
+                                                    <ReactStars
+                                                        edit={false}
+                                                        count={5}
+                                                        // onChange={ratingChanged}
+                                                        size={24}
+                                                        activeColor="#ffd700"
+                                                        value={item.totalrating}
+                                                    />
+                                                    <span>{item.numOfReviews}</span>
+                                                </div>
+                                                <span>${item.price}</span></Link>
                                         </div>
                                     </div>
                                 })
@@ -106,7 +109,6 @@ function ProductCard() {
                     </div>
                 </div>
             </div >
-            {/* </InfiniteScroll> */}
         </>
     )
 }

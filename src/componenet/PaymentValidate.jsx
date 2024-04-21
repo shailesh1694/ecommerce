@@ -16,10 +16,10 @@ function PaymentValidate() {
       payment_id: searchParams.get("referance")
     })).then((res) => {
       if (res.type === "product/getVerifyOrderConfirmation/fulfilled") {
-        dispatch(getorderByOrderId(searchParams.get("order_reference")))
-      }
+        dispatch(getorderByOrderId(searchParams.get("order_reference")))      }
     })
   }, [])
+console.log(OrderVerification,"OrderVerification")
 
   return (
     <>

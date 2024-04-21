@@ -1,55 +1,43 @@
-.headerCotainer {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    background-color: lightgray;
-    height: 50px;
-    /* box-sizing: border-box; */
-}
 
-.headerList {
-    width: 100%;
-    max-width: 1024px;
+.profileShowName {
     display: flex;
+    padding: 5px;
     align-items: center;
+    gap: 5px;
+    cursor: pointer;
 }
 
-.listContainer {
+
+:root {
+    --brand-clr: hsl(185, 85%, 40%);
+    --bg-primary: hsl(195, 20%, 86%);
+    --border-clr: hsl(195, 16%, 82%);
+    --accent-blue: hsl(205, 100%, 48%);
+    --text-primary: hsl(180, 6%, 38%);
+    --text-accent: hsl(195, 2%, 78%);
+
+    --header: 3.5rem;
+    --full-width: 100%;
+    --padding-space: calc(var(--full-width) - 2rem);
+    --max-width: 100%;
+    --min-width: 100%;
+
+    --bd-radius: 0.5em;
+    --space-025: 0.25rem;
+    --space-05: 0.5rem;
+    --space-1: 1rem;
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
     display: flex;
-    list-style-type: none;
-    margin: 0px auto;
+    flex-flow: column;
+    min-block-size: 100vh;
+    font-family: system-ui;
+    background: linear-gradient(45deg, hsl(185, 26%, 72%), hsl(224, 66%, 82%));
 }
 
-.listContainer>li {
-    margin: 0px 5px;
-}
 
-.headerProfile {
-    /* margin: 0px 10px; */
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    font-size: 25px;
-    /* cursor: pointer; */
-}
-
-.profileShow{
-    height: 200px;
-    width: 250px;
-    position: absolute;
-    background-color: white;
-    z-index: 1;
-    right: 17%;
-    /* top: 20%; */
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-    font-size: 20px;
-}
-.profileShowName{
-display: flex;
-align-items: center;
-gap: 10px;
-margin: 10px 0px;
-cursor: pointer;
-}
